@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component.jsx";
-import SignInAndSignUpPage from "./pages/sign-in/sign-in-and-sign-up.component";
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import React from "react";
 
@@ -18,19 +18,23 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      createUserProfileDocument(userAuth)
-      if(userAuth){
-        const userRef= await createUserProfileDocument(userAuth);
-        userRef.onSnapshot(snapShot=>{
-          this.setState({currentUser: {id: snapShot.id,...snapShot.data()
-          }
-        })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      createUserProfileDocument(userAuth);
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot((snapShot) => {
+          this.setState(
+            {
+              currentUser: { id: snapShot.id, ...snapShot.data() },
+            },
+            console.log(userAuth)
+          );
         });
+      } else {
+        this.setState({ currentUser: null }); //null was userAuth
       }
-      this.setState({currentUser: {userAuth}})
     });
-    
+    console.log(this.state.currentUser);
   }
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -39,11 +43,11 @@ class App extends React.Component {
     return (
       <div>
         <Header currentUser={this.state.currentUser} />
-        <switch>
+        <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route path="/signin" component={SignInAndSignUpPage} />
-        </switch>
+        </Switch>
       </div>
     );
   }
