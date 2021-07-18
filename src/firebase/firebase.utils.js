@@ -16,7 +16,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`); //finding the location, kind of like the path to the location
-  const snapShot = await userRef.get(); // seeing whether or not the uid exists
+  const snapShot = await userRef.get(); // seeing whether or not the uid exists using the exist property. contains the actual data
   console.log(snapShot);
   if (!snapShot.exists) {
     //if uid does not exist create it in the database
