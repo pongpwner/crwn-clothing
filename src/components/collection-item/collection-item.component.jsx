@@ -12,7 +12,7 @@ const {name, price, imageUrl}=item;
       <span className="name">{name}</span>
       <span className="price">{price}</span>
     </div>
-    <CustomButton onClick={addItem(item)}inverted>Add to Cart</CustomButton>
+    <CustomButton onClick={()=>addItem(item)}inverted>Add to Cart</CustomButton>
   </div>
   );
   };
