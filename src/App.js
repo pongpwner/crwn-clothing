@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
@@ -55,14 +54,13 @@ class App extends React.Component {
               )
             }
           />
-         
         </Switch>
       </div>
     );
   }
 }
 const mapStateToProps = createStructuredSelector({
-  currentUser: setCurrentUser,
+  currentUser: selectCurrentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
