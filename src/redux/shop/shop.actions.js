@@ -5,7 +5,7 @@ import {
   convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 export const fetchCollectionsStart = (collectionsMap) => ({
-  type: ShopActionsTypes.UPDATE_COLLECTIONS,
+  type: ShopActionsTypes.FETCH_COLLECTIONS_START,
 });
 export const fetchCollectionsStartAsync = () => {
   return (dispatch) => {
